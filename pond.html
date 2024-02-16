@@ -24,39 +24,43 @@
     </style>
 </head>
 <body>
-    <div class = "card">
-        <img src ="http://localhost:8080/ducks/1/image" alt ="Avatar" style="width:100%">
-        <div class ="container">
-            <h4><b>1</b></h4>
-            <p>Mallard</p>
-        </div>
-    </div>
-    <div class = "card">
-        <img src ="http://localhost:8080/ducks/2/image" alt ="Avatar" style="width:100%">
-        <div class ="container">
-            <h4><b>2</b></h4>
-            <p>Redhead</p>
-        </div>
-    </div>
-    <div class = "card">
-        <img src ="http://localhost:8080/ducks/3/image" alt ="Avatar" style="width:100%">
-        <div class ="container">
-            <h4><b>3</b></h4>
-            <p>Rubber</p>
-        </div>
+    
+    <div id = "disp">
+
     </div>
 
+
+
     <script>
-        let ducks = [];
-      async function getAll(){
+    let ducks = [];
+    async function getAll(){
         let host = "http://localhost:8080";
         let response = await fetch(host+"/ducks");
         let result = await response.json();
 
-        
         console.log(result);
         return(result);
+    }
+    async function generateCard(){
+        if(ducks.length == 0){
+            ducks = await getAll();
+        }
+        //create a new div that is a card and add it to the page
+        document.getElementById("disp").innerHtml = "";
+        for(let duck of ducks){
+            console.log(duck.id, duck.type);
+            let card = '<div class = "card">'+
+                            '<img src ="http://localhost:8080/ducks/'+duck.id+'/image" alt ="Avatar" style="width:100%">'+
+                            '<div class ="container">'+
+                                '<h4><b>+'+duck.id+'+</b></h4>'+
+                                '<p>'+duck.type+'</p>'+
+                            '</div>'+
+                        '</div>';
+
+            document.getElementById("disp").innerHTML += card;
+        }
       }
+      generateCard();
 
 
     </script>

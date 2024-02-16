@@ -27,7 +27,7 @@
     </style>
   </head>
   <body>
-    <labe>Type:</label>
+    <labe>Type:</labe>
     <input id="type" />
     <button onclick="search()">Search</button>
     <br />
@@ -50,8 +50,7 @@
         let host = "http://localhost:8080";
         let response = await fetch(host+"/ducks");
         let result = await response.json();
-        //ducks = JSON.stringify(result);
-        
+
         console.log(result);
         return(result);
       }
